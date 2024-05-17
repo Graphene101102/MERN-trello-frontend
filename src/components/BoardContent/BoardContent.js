@@ -7,8 +7,7 @@ function BoardContent() {
         <div className="board_conten">
             <Column />
             <Column />
-            <Column />
-            <Column />
+            
         </div>
     )
 }
