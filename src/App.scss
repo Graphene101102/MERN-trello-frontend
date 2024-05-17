@@ -40,17 +40,30 @@ body {
 
   .board_columns {
     display: flex;
+    margin: 0 $gap $gap ;
     overflow-x: auto;
+    &::-webkit-scrollbar{
+      -webkit-appearance: none;
+    }
+    &::-webkit-scrollbar:horizontal{
+      height: $gap;
+    }
+    &::-webkit-scrollbar-thumb{
+      background-color: lighten($board-bg-cl, 15);
+      border-radius: 5px;
+    }
 
     .column {
       flex: 0 0 auto;
       width: 300px;
-     
-      height: calc(100%-#{$gap});
+      height: calc(100% - #{$gap});
+      margin-left: $gap;
+      
       > * {
         background-color: $list-bg-cl;
         color: #333;
         padding: 0 8px;
+        
       }
       header {
         padding-left: 15px;
@@ -70,11 +83,20 @@ body {
         border-bottom-right-radius: $column-border-radius;
       }
       ul {
-        overflow: auto;
         list-style-type: none;
         margin: 0;
-        max-height: calc(100%-#{$column-header-height}-#{$column-footer-height});
-
+        max-height: calc(100% - #{$column-header-height} - #{$column-footer-height});
+        overflow-y: scroll;
+        &::-webkit-scrollbar{
+          -webkit-appearance: none;
+        }
+        &::-webkit-scrollbar:vertical{
+          width: $gap;
+        }
+        &::-webkit-scrollbar-thumb{
+          background-color: darken($list-bg-cl, 15 );
+          border-right: 5px solid $list-bg-cl;
+        }
         li {
           background-color: white;
           padding: $gap;
@@ -87,8 +109,8 @@ body {
             display: block;
             width: calc(100% + 2 * #{$gap});
             margin: -$gap 0 $gap (-$gap);
-            border-bottom-left-radius: $card-border-radius;
-            border-bottom-right-radius: $card-border-radius;
+            border-top-left-radius: $card-border-radius;
+            border-top-right-radius: $card-border-radius;
           }
           
         }
