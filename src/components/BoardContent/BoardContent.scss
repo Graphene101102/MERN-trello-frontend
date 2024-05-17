@@ -1,0 +1,22 @@
+@import '_setting.scss';
+
+.board_conten {
+    display: flex;
+    margin: 0 $gap $gap ;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+    }
+
+    &::-webkit-scrollbar:horizontal {
+      height: $gap;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: lighten($board-bg-cl, 15);
+      border-radius: 5px;
+    }
+
+
+}
