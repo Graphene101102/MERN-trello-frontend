@@ -8,6 +8,7 @@ function BoardContent() {
             <Column />
             <Column />
             <Column />
+            <Column />
         </div>
     )
 }
