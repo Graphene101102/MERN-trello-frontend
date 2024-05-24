@@ -7,10 +7,8 @@ $card-border-radius: 4px;
     padding: $gap;
     border-radius: $card-border-radius;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    margin-bottom: $gap;
 
-    &:not(:last-child) {
-        margin-bottom: $gap;
-    }
 
     img.card-cover {
         display: block;

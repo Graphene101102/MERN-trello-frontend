@@ -2,9 +2,10 @@
 $appbar-bg-cl: #0067a3;
 
 .navbar-app {
-    background-color: $appbar-bg-cl;
-    font-size: 1.5rem;
-    padding-left: $gap;
-    display: flex;
-    align-items: center;
-  }
+  height: $navbar-app-height;
+  background-color: $appbar-bg-cl;
+  font-size: 1.5rem;
+  padding-left: $gap;
+  display: flex;
+  align-items: center;
+}

@@ -1,27 +1,44 @@
 @import '_setting.scss';
 
 .board_conten {
-    display: flex;
-    margin: 0 $gap $gap ;
-    overflow-x: auto;
+  height: $board-content-height;
+  display: flex;
+  margin: 0 $gap $gap ;
+  overflow-x: auto;
+  overflow-y: hidden;
 
-    &::-webkit-scrollbar {
-      -webkit-appearance: none;
-    }
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+  }
 
-    &::-webkit-scrollbar:horizontal {
-      height: $gap;
-    }
+  &::-webkit-scrollbar:horizontal {
+    height: $gap;
+  }
 
-    &::-webkit-scrollbar-thumb {
-      background-color: lighten($board-bg-cl, 15);
-      border-radius: 5px;
-    }
+  &::-webkit-scrollbar-thumb {
+    background-color: lighten($board-bg-cl, 15);
+    border-radius: 5px;
+  }
 
-    .column-drop-preview {
-      background-color: rgba(150, 150, 200, 0.1);
-      border: 1px dashed #abc;
-      margin: 5px 45px 5px 5px;
-    }
+  .column-drop-preview {
+    background-color: rgba(150, 150, 200, 0.1);
+    border: 1px dashed #abc;
+    margin: 5px 45px 5px 5px;
+  }
+
+  .add-new-column {
+    flex: 0 0 auto;
+    width: 300px;
+    height: $column-header-height;
+    line-height: $column-header-height;
+    padding: 4px 0px 4px 15px;
+    font-size: 16;
+    font-weight: bold;
+    margin-left: $gap;
+    border-radius: $column-border-radius;
+    cursor: pointer;
+    color: white;
+    background-color: hsla(0, 0%, 100%, .24);
+  }
 
 }
