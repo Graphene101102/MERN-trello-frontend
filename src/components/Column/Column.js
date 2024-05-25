@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Dropdown, Form } from 'react-bootstrap';
+import { Dropdown, Form, Button } from 'react-bootstrap';
 import { Container, Draggable } from "react-smooth-dnd";
 import './Column.scss';
 import Card from "../Card/Card";
@@ -7,6 +7,7 @@ import { mapOrder } from "utilities/sorts";
 import ConfirmModal from "Common/confirmModal";
 import { MODAL_ACTION_CONFIRM } from 'utilities/constants'
 import { PressEnter } from 'utilities/contentEditable'
+import { cloneDeep } from "lodash";
 
 function Column(props) {
     const { column, onCardDrop, onUpdateColumn } = props
@@ -17,6 +18,12 @@ function Column(props) {
 
     const [columnTitle, setColumnTitle] = useState('')
     const columnTitleChange = useCallback((e) => setColumnTitle(e.target.value), [])
+
+    const [openNewCardForm, setOpenNewCardForm] = useState(false);
+    const toggleOpenNewCard = () => setOpenNewCardForm(!openNewCardForm)
+
+    const [newCardContent, setNewCardContent] = useState('')
+    const onNewCard = (e) => setNewCardContent(e.target.value)
 
     useEffect(() => {
         setColumnTitle(column.title)
@@ -43,6 +50,25 @@ function Column(props) {
         onUpdateColumn(newColumn)
     }
 
+    const addNewCard = () => {
+        const newCardToAdd = {
+            id: Math.random().toString(36).substring(2, 5),
+            boardId: column.boardId,
+            columnId: column.id,
+            title: newCardContent.trim(),
+            cover: null
+        }
+        // console.log(newCardToAdd)
+
+        let newColumn = cloneDeep(column)
+        newColumn.cards.push(newCardToAdd)
+        newColumn.cardOrder.push(newCardToAdd.id)
+
+        onUpdateColumn(newColumn)
+        setNewCardContent('')
+        toggleOpenNewCard()
+    }
+
     return (
         <div className="column">
             <header className="column-drag-handle">
@@ -55,7 +81,7 @@ function Column(props) {
                         onChange={columnTitleChange}
                         onBlur={columnTitleChangeBlur}
                         onKeyDown={PressEnter}
-                        // onMouseDown={e => e.preventDefault()}
+                    // onMouseDown={e => e.preventDefault()}
                     />
                 </div>
                 <div className="column-dropdown-actions">
@@ -101,13 +127,35 @@ function Column(props) {
 
                     ))}
                 </Container>
+                {openNewCardForm &&
+                    <div className="add-new-card-area">
+                        <Form.Control
+                            size="sm"
+                            as="textarea"
+                            row='3'
+                            placeholder="Enter a little for this card..."
+                            className="input-new-card"
+                            value={newCardContent}
+                            onChange={onNewCard}
+                        // onKeyDown={event => (event.key === 'Enter') && addNewCard()}
+                        />
+                        <Button variant="success" size="sm" onClick={addNewCard}>Add Card</Button>{' '}
+                        <span className="cancel-icon" onClick={toggleOpenNewCard}> <i className="fa fa-trash icon" /></span>
+                    </div>
+                }
+
             </div>
 
             <footer>
-                <div className="footer-action">
-                    <i className="fa fa-plus icon" /> Add another card
-                </div>
+                {!openNewCardForm &&
+                    <div className="footer-action" onClick={toggleOpenNewCard}>
+                        <i className="fa fa-plus icon" /> Add another card
+                    </div>
+                }
             </footer>
+
+
+
 
             <ConfirmModal
                 title="Remove column"
