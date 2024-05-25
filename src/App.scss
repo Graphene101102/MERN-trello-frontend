@@ -1,3 +1,4 @@
+@import '~bootstrap/scss/bootstrap';
 @import './_setting.scss';
 
 body {
@@ -9,8 +10,24 @@ body {
   .viet_app {
     height: 100vh;
     overflow-y: hidden;
-    
     background-color: $board-bg-cl;
+
+    .icon {
+      font-size: 14px;
+      margin-right: 0 3px;
+    }
+
+    .container {
+      margin: 0 15px;
+      padding: 0;
+    }
+
+    .btn:focus, .btn:active {
+      outline: none;
+      box-shadow: none;
+    }
   }
+
+
 
 }
