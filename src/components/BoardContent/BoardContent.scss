@@ -56,15 +56,5 @@
     input.input-new-column {
       margin: 5px 0;
     }
-    .cancel-new-column{
-      margin-left: $gap;
-      font-size: 18px;
-      cursor: pointer;
-      color: #ee5253;
-      &:hover {
-        color: darken($color: #ee5253, $amount: 10);
-      }
-    }
   }
-
 }

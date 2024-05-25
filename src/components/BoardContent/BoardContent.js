@@ -12,6 +12,8 @@ function BoardContent() {
     const [board, setBoard] = useState({});
     const [columns, setColumns] = useState([]);
     const [openNewColumnForm, setOpenNewColumnForm] = useState(false);
+    const toggleOpenNewColumn = () => setOpenNewColumnForm(!openNewColumnForm)
+
     const [newColumnTitle, setNewColumnTitle] = useState('')
 
     const onNewColumnTitleChange = useCallback((e) => setNewColumnTitle(e.target.value), [])
@@ -57,9 +59,9 @@ function BoardContent() {
         }
     }
 
-    const addNewColumn = () => {   
+    const addNewColumn = () => {
         const newColumnToAdd = {
-            id:Math.random().toString(36).substring(2,5),
+            id: Math.random().toString(36).substring(2, 5),
             boardId: board.id,
             title: newColumnTitle.trim(),
             cardOrder: [],
@@ -77,7 +79,6 @@ function BoardContent() {
 
         setNewColumnTitle('')
         toggleOpenNewColumn()
-
     }
 
     const onUpdateColumn = (newColumnToUpdate) => {
@@ -85,7 +86,7 @@ function BoardContent() {
         let newColumns = [...columns]
         const columnToUpdate = newColumns.findIndex(i => i.id === columnIdToUpdate)
 
-        if (newColumnToUpdate._destroy){
+        if (newColumnToUpdate._destroy) {
             //remove column
             newColumns.splice(columnToUpdate, 1)
         } else {
@@ -101,7 +102,6 @@ function BoardContent() {
         setBoard(newBoard)
     }
 
-    const toggleOpenNewColumn = () => setOpenNewColumnForm(!openNewColumnForm)
     return (
         <div className="board_conten">
             <Container
@@ -117,7 +117,11 @@ function BoardContent() {
             >
                 {columns.map((column, index) => (
                     <Draggable key={index}>
-                        <Column column={column} onCardDrop={onCardDrop} onUpdateColumn={onUpdateColumn} />
+                        <Column
+                            column={column}
+                            onCardDrop={onCardDrop}
+                            onUpdateColumn={onUpdateColumn}
+                        />
                     </Draggable>
 
                 ))}
@@ -142,7 +146,7 @@ function BoardContent() {
                             onKeyDown={event => (event.key === 'Enter') && addNewColumn()}
                         />
                         <Button variant="success" size="sm" onClick={addNewColumn}>Add column</Button>{' '}
-                        <span className="cancel-new-column" onClick={toggleOpenNewColumn}> <i className="fa fa-trash icon" /></span>
+                        <span className="cancel-icon" onClick={toggleOpenNewColumn}> <i className="fa fa-trash icon" /></span>
                     </Col>
                 </Row>}
 
